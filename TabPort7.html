@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+        <style>
+
+        * {
+        box-sizing: border-box;
+        }
+
+        .container {
+        position: relative;
+        }
+
+        .mySlides {
+        display: none;
+        }
+
+        .cursor {
+        cursor: pointer;
+        }
+
+        .prev,
+        .next {
+        cursor: pointer;
+        position: absolute;
+        top: 40%;
+        width: auto;
+        padding: 16px;
+        margin-top: -50px;
+        color: white;
+        font-weight: bold;
+        font-size: 20px;
+        border-radius: 0 3px 3px 0;
+        user-select: none;
+        -webkit-user-select: none;
+        }
+
+        #move {
+          right: 30%;
+        }
+
+        #move2 {
+          left: 30%;
+        }
+
+        .next {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+        }
+
+        .prev:hover,
+        .next:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .numbertext {
+        color: #f2f2f2;
+        font-size: 12px;
+        padding: 8px 12px;
+        position: absolute;
+        top: 0;
+        }
+
+        .caption-container {
+        text-align: center;
+        background-color: #222;
+        padding: 2px 16px;
+        color: white;
+        }
+
+        .row:after {
+        content: "";
+        display: table;
+        clear: both;
+        }
+
+        .column {
+        float: left;
+        width: 16.66%;
+        }
+
+        .demo {
+        opacity: 0.6;
+        }
+
+        .active,
+        .demo:hover {
+        opacity: 1;
+        }
+         
+        body, html {
+        height: 100%;
+        margin: 0;
+        font-family: Arial;
+        text-align: center;
+        }
+
+        #font-weight {
+        font-weight: bold;
+        font-size: xx-large;
+        color: white; 
+        text-shadow: #555;
+        max-width: 1000px;
+        margin: auto;
+        }
+
+        /* Style tab links */
+        .tablink {
+        background-color: #555;
+        color: white;
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        font-size: 17px;
+        width: 25%;
+        }
+
+        #trainer,
+        #mario {
+            max-width: 300px;
+            max-height: 200px;
+            margin: auto;
+        }
+
+        .tablink:hover {
+        background-color: #777;
+        }
+
+        .tabcontent {
+        color: white;
+        display: none;
+        padding: 100px 20px;
+        height: 100%;
+        }
+
+        .containers {
+        margin: auto;
+        position: relative;
+        width: 400px;
+        height: 300px;
+        }
+
+        .image {
+        display: block;
+        width: 100%;
+        height: auto;
+        }
+
+        .overlay {
+        position: absolute;
+        bottom: 100%;
+        left: 0;
+        right: 0;
+        background-color:seagreen;
+        overflow: hidden;
+        width: 100%;
+        height:0;
+        transition: .5s ease;
+        }
+
+        .containers:hover .overlay {
+        bottom: 0;
+        height: 100%;
+        }
+
+        .text {
+        color: white;
+        font-size: 20px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        text-align: center;
+        }
+
+        #change {
+        margin: auto;
+        top: 100px;
+        width:483px;
+        height:200px;
+        background:darkblue;
+        transition:all 0.3s ease;
+        opacity:0.5;
+        line-height: 1.8;
+        }
+
+        #change:hover {
+        border-radius:50%;
+        opacity:1;
+        }
+
+        .insert {
+        width: 700px;
+        height: auto;
+        }
+
+        .insert:hover {
+        box-shadow: inset 0 0 0 25px red;
+        }
+
+        #panel, .flip {
+        font-size: 16px;
+        padding: 10px;
+        text-align: center;
+        background-color: red;
+        color: white;
+        border: solid 1px white;
+        margin: auto;
+        width: 1100px;
+        height: auto;
+        border-radius: 90%;
+        }
+
+        #panel {
+        display: none;
+        }
+
+        #Home {background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/MSH82_st_helens_plume_from_harrys_ridge_05-19-82.jpg/1200px-MSH82_st_helens_plume_from_harrys_ridge_05-19-82.jpg);
+               background-repeat: no-repeat;
+               background-size: cover; 
+        }
+        #experience {background-image: url(https://images.freeimages.com/images/large-previews/877/enchanted-forest-1530895.jpg);
+               background-repeat: no-repeat;
+               background-size: cover; 
+        }
+        #Contact {background-image: url(https://images.freeimages.com/images/large-previews/314/water-on-the-rocks-1393347.jpg);
+               background-repeat: no-repeat;
+               background-size: cover;     
+        }
+        #Self-Taught {background-image: url(https://images.freeimages.com/images/large-previews/804/orange-sky-1197038.jpg);
+               background-repeat: no-repeat;
+               background-size: cover;
+        }
+        </style>
+    </head>
+    <body>
+        
+        <button class="tablink" onclick="openPage('Home', this, 'red')" id="defaultOpen">Home</button>
+        <button class="tablink" onclick="openPage('experience', this, 'green')">Experience</button>
+        <button class="tablink" onclick="openPage('Self-Taught', this, 'orange')">Education/Self-Taught</button>
+        <button class="tablink" onclick="openPage('Contact', this, 'blue')">Contact</button>
+        
+        <div id="Home" class="tabcontent">
+                <p id="font-weight" class="insert:flip" onclick="myFunction()" style="text-decoration-line:underline">You miss 100% of the shots you don't take</p>
+                <div id="panel">
+                    <h1 style="text-decoration-line:underline">About Me</h1>
+                    <p id="font-weight">Energetic professional focused on excellent customer service, efficient communication, and overall improvement. </p> <br>
+                    <p id="font-weight">Hobbies include: Training Friends, Basketball, Running, Coding, Reading, Video Games </p> <br>
+                    <p id="font-weight">Thank You For Visiting!</p>
+                </div>
+        </div>
+        
+        <div id="experience" class="tabcontent">
+            <div class="containers">
+                <img src="https://cdn.website.thryv.com/64321338c03c4efe8a5aa384fd5f7118/MOBILE/png/003.png" alt="work" class="image">
+                <div class="overlay">
+                    <div class="text"><ul>
+                    <li>Assistant Store Manager</li>
+                    <li>2016-Present</li>
+                    <li>24/7 emergency calls</li>
+                    <li>Commercial door install</li>
+                    <li>Full service and repair</li>
+                    <li>Billing and Documentation</li>
+                    <li><a target="_blank" href="https://www.tritondoors.com/">Web Link</a></li>
+                    </ul>
+                    </div>
+                </div>
+                </div>
+                <div class="containers">
+                <img src="https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX9855444.jpg" alt="work" id="mario" class="image">
+                <div class="overlay">
+                    <div class="text"><ul>
+                    <li>Plumbing Subcontractor</li>
+                    <li>2011-2016</li>
+                    <li>Residential emergency service and repair</li>
+                    <li>New construction</li>
+                    <li>Testing existing system</li>
+                    <li>Soldering</li>
+                    </ul>
+                    </div>
+                </div>
+                </div>
+                <div class="containers">
+                    <img src="https://www.shopirvinecompany.com/media/4670/store-logo-24hourfitness.jpg" alt="work" id="trainer" class="image">
+                        <div class="overlay">
+                        <div class="text"><ul>
+                            <li>Personal Trainer <br>
+                            24 Hour Fitness</li>
+                            <li>2010-2011, 2013-2014</li>
+                            <li>Workout designer</li>
+                            <li>Nutrition plan designer</li>
+                            <li>Sales rep/Cashier</li>
+                            <li>Service rep</li>
+                            </ul>
+                        </div>
+                        </div>
+                    </div>
+        </div>
+        
+        <div id="Contact" class="tabcontent">
+          <h1>Contact</h1>
+            <div id="change">
+            <p id="font-weight" class="fun-effect">Phone: example</p>
+            <p id="font-weight">E-mail: example</p>
+            <p id="font-weight">Github: /Spamlowkick</p>
+          </div>
+        </div>
+        
+        <div id="Self-Taught" class="tabcontent">
+          <h1>Education/Self-Taught</h1>
+
+        <div class="Self-Taught" class="tabcontent">
+
+        <div class="mySlides">
+          <div class="numbertext">1 / 6</div>
+            <img src="https://images.efollett.com/htmlroot/images/templates/storeLogos/CA/1259.gif" style="width:700px">
+        </div>
+      
+        <div class="mySlides">
+          <div class="numbertext">2 / 6</div>
+            <img src="https://upload.wikimedia.org/wikipedia/en/e/e2/Palomar-college-logo.png" style="width:700px">
+        </div>
+      
+        <div class="mySlides">
+          <div class="numbertext">3 / 6</div>
+            <img src="https://ampupfitness.com/wp-content/uploads/2017/03/NASM_certified.png" style="width:700px">
+        </div>
+      
+        <div class="mySlides">
+          <div class="numbertext">4 / 6</div>
+            <img src="http://www.createincode.com/static/webapp/img/webdesign_logo.jpeg" style="width:700px">
+        </div>
+      
+        <div class="mySlides">
+          <div class="numbertext">5 / 6</div>
+            <img src="https://i0.wp.com/zappysys.com/blog/wp-content/uploads/2018/06/REST-API-icon.jpg?ssl=1" style="width:400px">
+        </div>
+      
+        <div class="mySlides">
+          <div class="numbertext">6 / 6</div>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7WI3-q4gQK5wvIVH8ju69zAudA_DgIqE10NgLK715QJ3AsUYS4w" style="width:400px">
+        </div>
+      
+        <a id="move2" class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a id="move" class="next" onclick="plusSlides(1)">&#10095;</a>
+      
+        <div class="caption-container">
+          <p id="caption"></p>
+        </div>
+      
+        <div class="row">
+          <div class="column">
+            <img class="demo cursor" src="https://images.efollett.com/htmlroot/images/templates/storeLogos/CA/1259.gif" style="width:250px; height: 150px;" onclick="currentSlide(1)" alt="Biochemistry 2017-2018">
+          </div>
+          <div class="column"> 
+            <img class="demo cursor" src="https://upload.wikimedia.org/wikipedia/en/e/e2/Palomar-college-logo.png" style="width:250px; height: 150px;" onclick="currentSlide(2)" alt="2007-2015">
+          </div>
+          <div class="column">
+            <img class="demo cursor" src="https://ampupfitness.com/wp-content/uploads/2017/03/NASM_certified.png" style="width:250px; height: 150px;" onclick="currentSlide(3)" alt="2010">
+          </div>
+          <div class="column">
+            <img class="demo cursor" src="http://www.createincode.com/static/webapp/img/webdesign_logo.jpeg" style="width:250px; height: 150px;" onclick="currentSlide(4)" alt="CSS3, HTML5, JS">
+          </div>
+          <div class="column">
+            <img class="demo cursor" src="https://i0.wp.com/zappysys.com/blog/wp-content/uploads/2018/06/REST-API-icon.jpg?ssl=1" style="width:250px; height: 150px;" onclick="currentSlide(5)" alt="API Calls">
+          </div> 
+          <div class="column">
+            <img class="demo cursor" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7WI3-q4gQK5wvIVH8ju69zAudA_DgIqE10NgLK715QJ3AsUYS4w" style="width:250px; height: 150px;" onclick="currentSlide(6)" alt="SQL">
+          </div>
+        </div>
+      </div>  
+    </div>
+    
+    <script>
+        function openPage(pageName,elmnt,color) {
+          var i, tabcontent, tablinks;
+          tabcontent = document.getElementsByClassName("tabcontent");
+          for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+          }
+          tablinks = document.getElementsByClassName("tablink");
+          for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].style.backgroundColor = "";
+          }
+          document.getElementById(pageName).style.display = "block";
+          elmnt.style.backgroundColor = color;
+        }
+        
+        document.getElementById("defaultOpen").click();
+    </script>
+
+    <script>
+        var slideIndex = 1;
+        showSlides(slideIndex);
+        
+        function plusSlides(n) {
+          showSlides(slideIndex += n);
+        }
+        
+        function currentSlide(n) {
+          showSlides(slideIndex = n);
+        }
+        
+        function showSlides(n) {
+          var i;
+          var slides = document.getElementsByClassName("mySlides");
+          var dots = document.getElementsByClassName("demo");
+          var captionText = document.getElementById("caption");
+          if (n > slides.length) {slideIndex = 1}
+          if (n < 1) {slideIndex = slides.length}
+          for (i = 0; i < slides.length; i++) {
+              slides[i].style.display = "none";
+          }
+          for (i = 0; i < dots.length; i++) {
+              dots[i].className = dots[i].className.replace(" active", "");
+          }
+          slides[slideIndex-1].style.display = "block";
+          dots[slideIndex-1].className += " active";
+          captionText.innerHTML = dots[slideIndex-1].alt;
+        }
+    </script>
+
+    <script>
+    function myFunction() {
+        document.getElementById("panel").style.display = "block";
+    }
+    </script>
+
+    </body>
+
+
+</html>
